@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>{% block title_block %} Blogs {% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}"><img src="/media/logo.png" width="50px"></a>
+      </li>
+      {% if user.is_authenticated %}
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+          @{{user.username}}
+        </a>
+        <div class="dropdown-menu">
+          <a href="{% url 'App_Blog:create_blog' %}" class="dropdown-item">Write Blog</a>
+          <a href="{% url 'App_Blog:my_blogs' %}" class="dropdown-item">My Blogs</a>
+          <a class="dropdown-item" href="{% url 'App_Login:profile' %}">Your Profile</a>
+          <hr>
+          <a href="{% url 'App_Login:logout' %}" class="dropdown-item">Log Out</a>
+        </div>
+      </div>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'App_Login:signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'App_Login:login' %}">Log In</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  <div class="container" style="padding-top:20px">
+    {% block body_block %}
+
+    {% endblock %}
+  </div>
+  </body>
+</html>
